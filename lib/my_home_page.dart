@@ -1,4 +1,6 @@
+import 'package:counterapp/controller/counter_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -7,7 +9,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int x = 20;
+  CounterController controller = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -20,22 +22,17 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(x.toString(), style: TextStyle(
+            Obx(() => Text(controller.counter.toString(), style: TextStyle(
               color: Colors.red,
               fontSize: 50,
-            ),)
+            ),))
           ],
 
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          x++;
-          print(x);
-          setState(() {
-
-          });
-        },
+        controller.incrementCounter();},
         child: Icon(Icons.add),
       ),
 
